@@ -1,8 +1,10 @@
 package co.tiagoaguiar.codelab.myapplication;
 
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,10 +46,21 @@ public class ImcActivity extends AppCompatActivity {
 
                 int imcResponseId = imcResponse(result);
 
-                Toast.makeText(ImcActivity.this, imcResponseId, Toast.LENGTH_LONG).show();
+                AlertDialog dialog = new AlertDialog.Builder(ImcActivity.this)
+                        .setTitle(getString(R.string.imc_response, result))
+                        .setMessage(imcResponseId)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .create();
+                dialog.show();
+
             }
         });
     }
+
     @StringRes
     private int imcResponse(double imc) {
         if (imc < 15)
@@ -63,7 +76,7 @@ public class ImcActivity extends AppCompatActivity {
         else if (imc < 35)
             return R.string.imc_so_high_weight;
         else if (imc < 40)
-            return  R.string.imc_severely_high_weight;
+            return R.string.imc_severely_high_weight;
         else
             return R.string.imc_extreme_weight;
 
