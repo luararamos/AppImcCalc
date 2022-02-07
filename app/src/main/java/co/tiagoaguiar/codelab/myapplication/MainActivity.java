@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,10 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
 		List<MainItem> mainItems = new ArrayList<>();
 		mainItems.add(new MainItem(1, R.drawable.ic_baseline_accessibility_24, R.string.label_imc, Color.BLUE));
-		mainItems.add(new MainItem(1, R.drawable.ic_baseline_visibility_24, R.string.label_tmb, Color.BLACK));
+		mainItems.add(new MainItem(2, R.drawable.ic_baseline_visibility_24, R.string.label_tmb, Color.YELLOW));
 
 		// Primeiro item: definir o comportamento de exibição do layout da recyclerview (mosaic, grid, linear horizontal ou vertical)
-		rvMain.setLayoutManager(new LinearLayoutManager(this));
+		rvMain.setLayoutManager(new GridLayoutManager(this, 2));
 		MainAdapter adapter = new MainAdapter(mainItems);
 		rvMain.setAdapter(adapter);
 
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 	public void bind(MainItem item) {
 		TextView txtName = itemView.findViewById(R.id.item_txt_name);
 		ImageView imgIcon = itemView.findViewById(R.id.item_img_icon);
-		LinearLayout container = (LinearLayout) itemView;
+		LinearLayout container = (LinearLayout) itemView.findViewById(R.id.btn_imc);
 
 		txtName.setText(item.getTextStringId());
 		imgIcon.setImageResource(item.getDrawableI());
